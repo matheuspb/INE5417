@@ -9,8 +9,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setFixedSize(size());
 
-    connect(ui->actionEditar, &QAction::triggered,
-            ui->entryWidget, &EntryWidget::updateEntries);
+    QObject::connect(ui->addExpenseAction, SIGNAL(triggered()),
+                     &ui->entryWidget->getList(), SLOT(addExpense()));
+
+    QObject::connect(ui->addIncomeAction, SIGNAL(triggered()),
+                     &ui->entryWidget->getList(), SLOT(addIncome()));
 }
 
 MainWindow::~MainWindow()

@@ -10,6 +10,7 @@ class EntryWidget : public QTreeWidget
 
 public:
     explicit EntryWidget(QWidget *parent = 0);
+    const EntryList& getList() const;
 
 public slots:
     void updateEntries();

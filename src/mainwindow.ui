@@ -55,13 +55,19 @@
     <property name="title">
      <string>Menu</string>
     </property>
-    <addaction name="actionEditar"/>
+    <addaction name="addIncomeAction"/>
+    <addaction name="addExpenseAction"/>
    </widget>
    <addaction name="menuArquivo"/>
   </widget>
-  <action name="actionEditar">
+  <action name="addIncomeAction">
    <property name="text">
-    <string>Atualizar</string>
+    <string>Adicionar receita</string>
+   </property>
+  </action>
+  <action name="addExpenseAction">
+   <property name="text">
+    <string>Adicionar despesa</string>
    </property>
   </action>
  </widget>
