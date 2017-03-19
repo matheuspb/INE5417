@@ -6,6 +6,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    setFixedSize(size());
+
+    QObject::connect(ui->addExpenseAction, SIGNAL(triggered()),
+                     &ui->entryWidget->getList(), SLOT(addExpense()));
+
+    QObject::connect(ui->addIncomeAction, SIGNAL(triggered()),
+                     &ui->entryWidget->getList(), SLOT(addIncome()));
 }
 
 MainWindow::~MainWindow()
