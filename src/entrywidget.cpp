@@ -9,13 +9,16 @@ EntryWidget::EntryWidget(QWidget *parent):
                      this, SLOT(updateEntries()));
 }
 
-const EntryList& EntryWidget::getList() const
+EntryList& EntryWidget::getList()
 {
     return list;
 }
 
 void EntryWidget::updateEntries()
 {
+    incomes.takeChildren();
+    expenses.takeChildren();
+
     incomes.addChildren(list.getIncomes());
     expenses.addChildren(list.getExpenses());
 }

@@ -18,6 +18,7 @@ public:
 public slots:
     void addExpense();
     void addIncome();
+    void removeEntry(QTreeWidgetItem*);
 
 signals:
     void listChanged();

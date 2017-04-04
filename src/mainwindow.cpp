@@ -20,3 +20,9 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::on_deleteButton_clicked()
+{
+    auto selected = ui->entryWidget->selectedItems();
+    ui->entryWidget->getList().removeEntry(selected[0]);
+}

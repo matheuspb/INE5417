@@ -37,3 +37,9 @@ QTreeWidgetItem* EntryList::buildItem(QString name, QString category,
     item->setFlags(item->flags() | Qt::ItemIsEditable);
     return item;
 }
+
+void EntryList::removeEntry(QTreeWidgetItem* entry) {
+    incomes.removeOne(entry);
+    expenses.removeOne(entry);
+    emit listChanged();
+}
