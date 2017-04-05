@@ -1,6 +1,6 @@
-#include "entrylist.h"
+#include "itemlist.h"
 
-EntryList::EntryList()
+ItemList::ItemList()
 {
     incomes.append(buildItem("Salário", "", "1500"));
 
@@ -8,29 +8,29 @@ EntryList::EntryList()
     expenses.append(buildItem("Luz", "Essencial", "70"));
 }
 
-const QList<QTreeWidgetItem*>& EntryList::getIncomes() const
+const QList<QTreeWidgetItem*>& ItemList::getIncomes() const
 {
     return incomes;
 }
 
-const QList<QTreeWidgetItem*>& EntryList::getExpenses() const
+const QList<QTreeWidgetItem*>& ItemList::getExpenses() const
 {
     return expenses;
 }
 
-void EntryList::addExpense()
+void ItemList::addExpense()
 {
     expenses.append(buildItem("Despesa", "", ""));
     emit listChanged();
 }
 
-void EntryList::addIncome()
+void ItemList::addIncome()
 {
     incomes.append(buildItem("Receita", "", ""));
     emit listChanged();
 }
 
-QTreeWidgetItem* EntryList::buildItem(QString name, QString category,
+QTreeWidgetItem* ItemList::buildItem(QString name, QString category,
                                       QString value)
 {
     auto item = new QTreeWidgetItem({name, category, value});
@@ -38,8 +38,8 @@ QTreeWidgetItem* EntryList::buildItem(QString name, QString category,
     return item;
 }
 
-void EntryList::removeEntry(QTreeWidgetItem* entry) {
-    incomes.removeOne(entry);
-    expenses.removeOne(entry);
+void ItemList::removeItem(QTreeWidgetItem* item) {
+    incomes.removeOne(item);
+    expenses.removeOne(item);
     emit listChanged();
 }

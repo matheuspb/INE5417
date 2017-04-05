@@ -1,16 +1,16 @@
-#ifndef ENTRYLIST_H
-#define ENTRYLIST_H
+#ifndef ITEMLIST_H
+#define ITEMLIST_H
 
 #include <QObject>
 #include <QTreeWidgetItem>
 #include <QList>
 
-class EntryList : public QObject
+class ItemList : public QObject
 {
     Q_OBJECT
 
 public:
-    EntryList();
+    ItemList();
 
     const QList<QTreeWidgetItem*>& getIncomes() const;
     const QList<QTreeWidgetItem*>& getExpenses() const;
@@ -18,7 +18,7 @@ public:
 public slots:
     void addExpense();
     void addIncome();
-    void removeEntry(QTreeWidgetItem*);
+    void removeItem(QTreeWidgetItem*);
 
 signals:
     void listChanged();
@@ -31,4 +31,4 @@ private:
                                       QString value);
 };
 
-#endif // ENTRYLIST_H
+#endif // ITEMLIST_H

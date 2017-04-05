@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    setWindowTitle("Gerenciador de orçamentos");
     setFixedSize(size());
 
     QObject::connect(ui->addExpenseAction, SIGNAL(triggered()),
@@ -24,5 +25,5 @@ MainWindow::~MainWindow()
 void MainWindow::on_deleteButton_clicked()
 {
     auto selected = ui->entryWidget->selectedItems();
-    ui->entryWidget->getList().removeEntry(selected[0]);
+    ui->entryWidget->getList().removeItem(selected[0]);
 }

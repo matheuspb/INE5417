@@ -20,16 +20,9 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="2" column="1">
-     <widget class="QPushButton" name="deleteButton">
-      <property name="text">
-       <string>Remover</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="EntryWidget" name="entryWidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="MainWidget" name="entryWidget">
       <column>
        <property name="text">
         <string>Nome</string>
@@ -45,6 +38,13 @@
         <string>Valor</string>
        </property>
       </column>
+     </widget>
+    </item>
+    <item alignment="Qt::AlignRight">
+     <widget class="QPushButton" name="deleteButton">
+      <property name="text">
+       <string>Remover</string>
+      </property>
      </widget>
     </item>
    </layout>
@@ -81,9 +81,9 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>EntryWidget</class>
+   <class>MainWidget</class>
    <extends>QTreeWidget</extends>
-   <header>entrywidget.h</header>
+   <header>mainwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

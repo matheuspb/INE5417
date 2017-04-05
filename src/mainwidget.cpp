@@ -1,6 +1,6 @@
-#include "entrywidget.h"
+#include "mainwidget.h"
 
-EntryWidget::EntryWidget(QWidget *parent):
+MainWidget::MainWidget(QWidget *parent):
     QTreeWidget(parent)
 {
     updateEntries();
@@ -9,12 +9,12 @@ EntryWidget::EntryWidget(QWidget *parent):
                      this, SLOT(updateEntries()));
 }
 
-EntryList& EntryWidget::getList()
+ItemList& MainWidget::getList()
 {
     return list;
 }
 
-void EntryWidget::updateEntries()
+void MainWidget::updateEntries()
 {
     incomes.takeChildren();
     expenses.takeChildren();
