@@ -1,44 +1,29 @@
 #include "itemlist.h"
 
-ItemList::ItemList()
-{
-    incomes.append(buildItem("Salário", "", "1500"));
-
-    expenses.append(buildItem("Aluguel", "Essencial", "500"));
-    expenses.append(buildItem("Luz", "Essencial", "70"));
-}
-
-const QList<QTreeWidgetItem*>& ItemList::getIncomes() const
+const QList<Item>& ItemList::getIncomes() const
 {
     return incomes;
 }
 
-const QList<QTreeWidgetItem*>& ItemList::getExpenses() const
+const QList<Item>& ItemList::getExpenses() const
 {
     return expenses;
 }
 
 void ItemList::addExpense()
 {
-    expenses.append(buildItem("Despesa", "", ""));
+    expenses.append(Item("Despesa", "", 0.0));
     emit listChanged();
 }
 
 void ItemList::addIncome()
 {
-    incomes.append(buildItem("Receita", "", ""));
+    incomes.append(Item("Receita", "", 0.0));
     emit listChanged();
 }
 
-QTreeWidgetItem* ItemList::buildItem(QString name, QString category,
-                                      QString value)
-{
-    auto item = new QTreeWidgetItem({name, category, value});
-    item->setFlags(item->flags() | Qt::ItemIsEditable);
-    return item;
-}
 
-void ItemList::removeItem(QTreeWidgetItem* item) {
+void ItemList::removeItem(Item item) {
     incomes.removeOne(item);
     expenses.removeOne(item);
     emit listChanged();

@@ -21,6 +21,8 @@ private:
     QTreeWidgetItem incomes{this, {"Receitas"}};
     QTreeWidgetItem expenses{this, {"Despesas"}};
 
+    static QTreeWidgetItem* buildItem(const Item&);
+
 };
 
 #endif // MAINWIDGET_H

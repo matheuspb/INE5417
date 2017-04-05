@@ -25,5 +25,8 @@ MainWindow::~MainWindow()
 void MainWindow::on_deleteButton_clicked()
 {
     auto selected = ui->entryWidget->selectedItems();
-    ui->entryWidget->getList().removeItem(selected[0]);
+    auto item = Item(selected[0]->text(0), selected[0]->text(1),
+            selected[0]->text(2).toDouble());
+    ui->entryWidget->getList().removeItem(item);
+    auto s = selected[0]->text(0);
 }

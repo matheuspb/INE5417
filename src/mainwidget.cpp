@@ -1,4 +1,5 @@
 #include "mainwidget.h"
+#include "item.h"
 
 MainWidget::MainWidget(QWidget *parent):
     QTreeWidget(parent)
@@ -19,6 +20,23 @@ void MainWidget::updateEntries()
     incomes.takeChildren();
     expenses.takeChildren();
 
-    incomes.addChildren(list.getIncomes());
-    expenses.addChildren(list.getExpenses());
+    auto incomeList = list.getIncomes();
+    auto expenseList = list.getExpenses();
+
+    for (auto income: incomeList) {
+        incomes.addChild(buildItem(income));
+    }
+
+    for (auto expense: expenseList) {
+        expenses.addChild(buildItem(expense));
+    }
+}
+
+QTreeWidgetItem* MainWidget::buildItem(const Item& item)
+{
+    auto treeItem = new QTreeWidgetItem({item.name(),
+                                         item.category(),
+                                         item.value()});
+    treeItem->setFlags(treeItem->flags() | Qt::ItemIsEditable);
+    return treeItem;
 }
