@@ -13,7 +13,7 @@ public:
 
     QString name() const;
     QString category() const;
-    QString value() const;
+    double value() const;
 
 private:
     QString _name;

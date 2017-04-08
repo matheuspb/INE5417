@@ -17,11 +17,10 @@ public:
     const QList<Item>& getIncomes() const;
     const QList<Item>& getExpenses() const;
 
-    void removeItem(Item);
+    void removeItem(const Item&);
 
-public slots:
-    void addExpense();
-    void addIncome();
+    void addExpense(const Item&);
+    void addIncome(const Item&);
 
 signals:
     void listChanged();

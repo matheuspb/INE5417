@@ -8,7 +8,9 @@ Item::Item(QString name, QString category, double value):
 
 bool Item::operator==(const Item& other) const
 {
-    return _name == other._name;
+    return _name == other._name &&
+           _category == other._category &&
+           _value == other._value;
 }
 
 QString Item::name() const
@@ -21,7 +23,7 @@ QString Item::category() const
     return _category;
 }
 
-QString Item::value() const
+double Item::value() const
 {
-    return QString::number(_value);
+    return _value;
 }

@@ -36,7 +36,6 @@ QTreeWidgetItem* MainWidget::buildItem(const Item& item)
 {
     auto treeItem = new QTreeWidgetItem({item.name(),
                                          item.category(),
-                                         item.value()});
-    treeItem->setFlags(treeItem->flags() | Qt::ItemIsEditable);
+                                         QString::number(item.value())});
     return treeItem;
 }

@@ -10,20 +10,20 @@ const QList<Item>& ItemList::getExpenses() const
     return expenses;
 }
 
-void ItemList::addExpense()
+void ItemList::addExpense(const Item& item)
 {
-    expenses.append(Item("Despesa", "", 0.0));
+    expenses.append(item);
     emit listChanged();
 }
 
-void ItemList::addIncome()
+void ItemList::addIncome(const Item& item)
 {
-    incomes.append(Item("Receita", "", 0.0));
+    incomes.append(item);
     emit listChanged();
 }
 
 
-void ItemList::removeItem(Item item) {
+void ItemList::removeItem(const Item& item) {
     incomes.removeOne(item);
     expenses.removeOne(item);
     emit listChanged();
