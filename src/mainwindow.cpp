@@ -3,6 +3,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QDebug>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -26,32 +28,47 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_deleteButton_clicked()
 {
-    auto selected = ui->entryWidget->selectedItems();
-    auto item = Item(selected[0]->text(0), selected[0]->text(1),
-            selected[0]->text(2).toDouble());
-    ui->entryWidget->getList().removeItem(item);
-    auto s = selected[0]->text(0);
+    ui->entryWidget->getList().removeItem(getSelected());
+}
+
+void MainWindow::on_editButton_clicked()
+{
+    auto old = getSelected();
+    auto edited = promptNewItem("Editar item", old.type(), old);
+    ui->entryWidget->getList().updateItem(old, edited);
 }
 
 void MainWindow::promptForIncome()
 {
-    auto income = promptNewItem("Nova receita");
-    ui->entryWidget->getList().addIncome(income);
+    auto income = promptNewItem("Nova receita", Item::income);
+    ui->entryWidget->getList().addItem(income);
 }
 
 void MainWindow::promptForExpense()
 {
-    auto expense = promptNewItem("Nova despesa");
-    ui->entryWidget->getList().addExpense(expense);
+    auto expense = promptNewItem("Nova despesa", Item::expense);
+    ui->entryWidget->getList().addItem(expense);
 }
 
-Item MainWindow::promptNewItem(const QString& title)
+Item MainWindow::getSelected() const
 {
-    auto name  = QInputDialog::getText(this, title, "Nome do novo item:");
-    auto category  = QInputDialog::getText(this, title,
-                                           "Categoria do novo item:");
-    auto value  = QInputDialog::getDouble(this, title,
-                                        "Valor do novo item:");
+    auto selected = ui->entryWidget->selectedItems();
+    auto type = static_cast<Item::Type>(selected[0]->type());
+    return Item(selected[0]->text(0), selected[0]->text(1),
+            selected[0]->text(2).toDouble(), type);
+}
 
-    return Item(name, category, value);
+Item MainWindow::promptNewItem(const QString& title, const Item::Type& type,
+                               const Item& hint)
+{
+    auto name = QInputDialog::getText(this, title, "Nome do item:",
+                                      QLineEdit::Normal, hint.name());
+
+    auto category = QInputDialog::getText(this, title, "Categoria do item:",
+                                          QLineEdit::Normal, hint.category());
+
+    auto value = QInputDialog::getDouble(this, title, "Valor do item:",
+                                         QLineEdit::Normal, hint.value());
+
+    return Item(name, category, value, type);
 }
