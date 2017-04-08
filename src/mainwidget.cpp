@@ -4,8 +4,6 @@
 MainWidget::MainWidget(QWidget *parent):
     QTreeWidget(parent)
 {
-    updateEntries();
-
     QObject::connect(&list, SIGNAL(listChanged()),
                      this, SLOT(updateEntries()));
 }
@@ -20,23 +18,11 @@ void MainWidget::updateEntries()
     incomes.takeChildren();
     expenses.takeChildren();
 
-    auto incomeList = list.getIncomes();
-    auto expenseList = list.getExpenses();
+    for (auto item: list.getItems()) {
+        QStringList data = {item.name(), item.category(),
+                          QString::number(item.value(), 'f', 2)};
 
-    for (auto income: incomeList) {
-        incomes.addChild(buildItem(income));
+        auto parent = item.type() == Item::Type::income ? &incomes : &expenses;
+        new QTreeWidgetItem(parent, data, item.type());
     }
-
-    for (auto expense: expenseList) {
-        expenses.addChild(buildItem(expense));
-    }
-}
-
-QTreeWidgetItem* MainWidget::buildItem(const Item& item)
-{
-    auto treeItem = new QTreeWidgetItem({item.name(),
-                                         item.category(),
-                                         item.value()});
-    treeItem->setFlags(treeItem->flags() | Qt::ItemIsEditable);
-    return treeItem;
 }

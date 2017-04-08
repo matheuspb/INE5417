@@ -1,30 +1,35 @@
 #include "itemlist.h"
 
-const QList<Item>& ItemList::getIncomes() const
+QList<Item> ItemList::getItems(Item::Type type) const
 {
-    return incomes;
+    if (type == Item::Type::none) {
+        return items;
+    } else {
+        QList<Item> incomes;
+        for (auto item: items) {
+            if (item.type() == type)
+                incomes.append(item);
+        }
+        return incomes;
+    }
 }
 
-const QList<Item>& ItemList::getExpenses() const
+void ItemList::addItem(const Item& item)
 {
-    return expenses;
-}
-
-void ItemList::addExpense()
-{
-    expenses.append(Item("Despesa", "", 0.0));
+    items.append(item);
     emit listChanged();
 }
 
-void ItemList::addIncome()
+
+void ItemList::removeItem(const Item& item)
 {
-    incomes.append(Item("Receita", "", 0.0));
+    items.removeAll(item);
     emit listChanged();
 }
 
-
-void ItemList::removeItem(Item item) {
-    incomes.removeOne(item);
-    expenses.removeOne(item);
+void ItemList::updateItem(const Item& current, const Item& other)
+{
+    auto i = items.indexOf(current);
+    items[i] = other;
     emit listChanged();
 }

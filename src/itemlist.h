@@ -14,21 +14,17 @@ class ItemList : public QObject
 public:
     ItemList() = default;
 
-    const QList<Item>& getIncomes() const;
-    const QList<Item>& getExpenses() const;
+    QList<Item> getItems(Item::Type type = Item::Type::none) const;
 
-    void removeItem(Item);
-
-public slots:
-    void addExpense();
-    void addIncome();
+    void addItem(const Item&);
+    void removeItem(const Item&);
+    void updateItem(const Item&, const Item&);
 
 signals:
     void listChanged();
 
 private:
-    QList<Item> incomes;
-    QList<Item> expenses;
+    QList<Item> items;
 
 };
 
