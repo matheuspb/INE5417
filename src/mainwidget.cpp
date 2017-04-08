@@ -34,8 +34,7 @@ void MainWidget::updateEntries()
 
 QTreeWidgetItem* MainWidget::buildItem(const Item& item)
 {
-    auto treeItem = new QTreeWidgetItem({item.name(),
-                                         item.category(),
-                                         QString::number(item.value())});
-    return treeItem;
+    QStringList data = {item.name(), item.category(),
+                      QString::number(item.value(), 'f', 2)};
+    return new QTreeWidgetItem(data);
 }
