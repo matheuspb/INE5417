@@ -11,7 +11,8 @@ bool Item::operator==(const Item& other) const
 {
     return _name == other._name &&
            _category == other._category &&
-           _value == other._value;
+           _value == other._value &&
+           _type == other._type;
 }
 
 Item::Type Item::type() const

@@ -1,9 +1,7 @@
-#include <QInputDialog>
-
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <QDebug>
+#include <QSignalMapper>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -14,61 +12,27 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowTitle("Gerenciador de orçamentos");
     setFixedSize(size());
 
-    QObject::connect(ui->addExpenseAction, SIGNAL(triggered()),
-                     this, SLOT(promptForExpense()));
+    connect(ui->deleteButton, SIGNAL(clicked()),
+            ui->entryWidget, SLOT(removeSelectedItem()));
 
-    QObject::connect(ui->addIncomeAction, SIGNAL(triggered()),
-                     this, SLOT(promptForIncome()));
+    connect(ui->editButton, SIGNAL(clicked()),
+            ui->entryWidget, SLOT(editSelectedItem()));
+
+    auto signalMapper = new QSignalMapper(this);
+
+    connect(ui->addIncomeAction, SIGNAL(triggered()),
+            signalMapper, SLOT(map()));
+    connect(ui->addExpenseAction, SIGNAL(triggered()),
+            signalMapper, SLOT(map()));
+
+    signalMapper->setMapping(ui->addIncomeAction, 0);
+    signalMapper->setMapping(ui->addExpenseAction, 1);
+
+    connect(signalMapper, SIGNAL(mapped(int)),
+            ui->entryWidget, SLOT(addNewItem(int)));
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::on_deleteButton_clicked()
-{
-    ui->entryWidget->getList().removeItem(getSelected());
-}
-
-void MainWindow::on_editButton_clicked()
-{
-    auto old = getSelected();
-    auto edited = promptNewItem("Editar item", old.type(), old);
-    ui->entryWidget->getList().updateItem(old, edited);
-}
-
-void MainWindow::promptForIncome()
-{
-    auto income = promptNewItem("Nova receita", Item::income);
-    ui->entryWidget->getList().addItem(income);
-}
-
-void MainWindow::promptForExpense()
-{
-    auto expense = promptNewItem("Nova despesa", Item::expense);
-    ui->entryWidget->getList().addItem(expense);
-}
-
-Item MainWindow::getSelected() const
-{
-    auto selected = ui->entryWidget->selectedItems();
-    auto type = static_cast<Item::Type>(selected[0]->type());
-    return Item(selected[0]->text(0), selected[0]->text(1),
-            selected[0]->text(2).toDouble(), type);
-}
-
-Item MainWindow::promptNewItem(const QString& title, const Item::Type& type,
-                               const Item& hint)
-{
-    auto name = QInputDialog::getText(this, title, "Nome do item:",
-                                      QLineEdit::Normal, hint.name());
-
-    auto category = QInputDialog::getText(this, title, "Categoria do item:",
-                                          QLineEdit::Normal, hint.category());
-
-    auto value = QInputDialog::getDouble(this, title, "Valor do item:",
-                                         QLineEdit::Normal, hint.value());
-
-    return Item(name, category, value, type);
 }
