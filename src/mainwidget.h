@@ -11,12 +11,16 @@ class MainWidget : public QTreeWidget
 public:
     explicit MainWidget(QWidget *parent = 0);
 
-    ItemList& getList();
-
 public slots:
+    void addNewItem(int);
+    void removeSelectedItem();
+    void editSelectedItem();
     void updateEntries();
 
 private:
+    Item promptNewItem(const Item::Type&, const Item& = Item());
+    Item getSelected() const;
+
     ItemList list;
     QTreeWidgetItem incomes{this, {"Receitas"}};
     QTreeWidgetItem expenses{this, {"Despesas"}};
