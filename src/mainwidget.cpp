@@ -6,25 +6,26 @@
 MainWidget::MainWidget(QWidget *parent):
     QTreeWidget(parent)
 {
-    QObject::connect(&list, SIGNAL(listChanged()),
+    QObject::connect(&items, SIGNAL(changed()),
                      this, SLOT(updateEntries()));
 }
 
-void MainWidget::addNewItem(int type)
+void MainWidget::addNewItem(int type) // 0 = income, 1 = expense
 {
-    list.addItem(promptNewItem(static_cast<Item::Type>(type)));
+    items.addItem(promptNewItem(static_cast<Item::Type>(type)));
 }
 
 void MainWidget::removeSelectedItem()
 {
-    list.removeItem(getSelected());
+    items.removeItem(getSelected());
 }
 
 void MainWidget::editSelectedItem()
 {
     auto old = getSelected();
     auto edited = promptNewItem(old.type(), old);
-    list.updateItem(old, edited);
+    items.removeItem(old);
+    items.addItem(edited);
 }
 
 void MainWidget::updateEntries()
@@ -32,7 +33,7 @@ void MainWidget::updateEntries()
     incomes.takeChildren();
     expenses.takeChildren();
 
-    for (auto item: list.getItems()) {
+    for (auto item: items) {
         QStringList data = {item.name(), item.category(),
                           QString::number(item.value(), 'f', 2)};
 

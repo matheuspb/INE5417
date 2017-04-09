@@ -25,13 +25,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    itemlist.cpp \
     mainwidget.cpp \
-    item.cpp
+    item.cpp \
+    items.cpp
 
 HEADERS  += mainwindow.h \
-    itemlist.h \
     mainwidget.h \
-    item.h
+    item.h \
+    items.h
 
 FORMS    += mainwindow.ui

@@ -2,7 +2,7 @@
 #define MAINWIDGET_H
 
 #include <QTreeWidget>
-#include "itemlist.h"
+#include "items.h"
 
 class MainWidget : public QTreeWidget
 {
@@ -21,7 +21,7 @@ private:
     Item promptNewItem(const Item::Type&, const Item& = Item());
     Item getSelected() const;
 
-    ItemList list;
+    Items items;
     QTreeWidgetItem incomes{this, {"Receitas"}};
     QTreeWidgetItem expenses{this, {"Despesas"}};
 
