@@ -23,6 +23,7 @@ private:
     QString _category;
     double  _value;
     Type    _type{none};
+
 };
 
 #endif // ITEM_H

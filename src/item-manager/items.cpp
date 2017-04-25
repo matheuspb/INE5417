@@ -8,5 +8,5 @@ void Items::addItem(const Item& item)
 
 void Items::removeItem(const Item& item)
 {
-    remove(item.name());
+    erase(find(item.name(), item)); // erase just removes one item
 }

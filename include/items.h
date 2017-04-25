@@ -2,11 +2,11 @@
 #define ITEMLIST_H
 
 #include <QObject>
-#include <QMap>
+#include <QMultiMap>
 
 #include "item.h"
 
-class Items : public QObject, private QMap<QString, Item>
+class Items : public QObject, private QMultiMap<QString, Item>
 {
     Q_OBJECT
 
