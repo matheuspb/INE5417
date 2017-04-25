@@ -5,19 +5,18 @@
 
 MainWidget::MainWidget(QWidget *parent):
     QTreeWidget(parent)
-{
-    QObject::connect(&items, SIGNAL(changed()),
-                     this, SLOT(updateEntries()));
-}
+{}
 
-void MainWidget::addNewItem(int type) // 0 = income, 1 = expense
+void MainWidget::addNewItem(const Item::Type& type)
 {
-    items.addItem(promptNewItem(static_cast<Item::Type>(type)));
+    items.addItem(promptNewItem(type));
+    updateEntries();
 }
 
 void MainWidget::removeSelectedItem()
 {
     items.removeItem(getSelected());
+    updateEntries();
 }
 
 void MainWidget::editSelectedItem()
@@ -26,6 +25,7 @@ void MainWidget::editSelectedItem()
     auto edited = promptNewItem(old.type(), old);
     items.removeItem(old);
     items.addItem(edited);
+    updateEntries();
 }
 
 void MainWidget::updateEntries()

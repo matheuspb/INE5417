@@ -12,7 +12,7 @@ public:
     explicit MainWidget(QWidget *parent = 0);
 
 public slots:
-    void addNewItem(int);
+    void addNewItem(const Item::Type&);
     void removeSelectedItem();
     void editSelectedItem();
     void updateEntries();

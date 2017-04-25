@@ -17,9 +17,6 @@ public:
     void addItem(const Item&);
     void removeItem(const Item&);
 
-signals:
-    void changed();
-
 };
 
 #endif // ITEMLIST_H
