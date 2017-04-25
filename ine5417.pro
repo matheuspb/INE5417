@@ -22,16 +22,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+INCLUDEPATH += $$PWD/include
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
-    mainwidget.cpp \
-    item.cpp \
-    items.cpp
+SOURCES += src/item-manager/item.cpp \
+    src/item-manager/items.cpp \
+    src/view/mainwidget.cpp \
+    src/view/mainwindow.cpp \
+    src/main.cpp
 
-HEADERS  += mainwindow.h \
-    mainwidget.h \
-    item.h \
-    items.h
+HEADERS  += include/item.h \
+    include/items.h \
+    include/mainwidget.h \
+    include/mainwindow.h
 
-FORMS    += mainwindow.ui
+FORMS    += src/view/mainwindow.ui

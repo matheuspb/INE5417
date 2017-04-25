@@ -1,4 +1,4 @@
-#include "item.h"
+#include <item.h>
 
 Item::Item(QString name, QString category, double value, Type type):
     _name{name},

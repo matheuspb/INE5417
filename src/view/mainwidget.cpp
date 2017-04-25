@@ -1,5 +1,5 @@
-#include "mainwidget.h"
-#include "item.h"
+#include <mainwidget.h>
+#include <item.h>
 
 #include <QInputDialog>
 
