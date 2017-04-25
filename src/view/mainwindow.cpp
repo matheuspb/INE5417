@@ -1,8 +1,6 @@
 #include <mainwindow.h>
 #include <ui_mainwindow.h>
 
-#include <QSignalMapper>
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -12,10 +10,10 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowTitle("Gerenciador de orçamentos");
     setFixedSize(size());
 
-    connect(ui->addIncomeAction, SIGNAL(triggered()),
-            this, SLOT(on_income_clicked()));
-    connect(ui->addExpenseAction, SIGNAL(triggered()),
-            this, SLOT(on_expense_clicked()));
+    connect(ui->addIncomeAction, SIGNAL(triggered(bool)),
+            this, SLOT(income_clicked()));
+    connect(ui->addExpenseAction, SIGNAL(triggered(bool)),
+            this, SLOT(expense_clicked()));
 }
 
 MainWindow::~MainWindow()
@@ -25,20 +23,20 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_deleteButton_clicked()
 {
-    ui->entryWidget->removeSelectedItem();
+    ui->itemsWidget->removeSelectedItem();
 }
 
 void MainWindow::on_editButton_clicked()
 {
-    ui->entryWidget->editSelectedItem();
+    ui->itemsWidget->editSelectedItem();
 }
 
-void MainWindow::on_income_clicked()
+void MainWindow::income_clicked()
 {
-    ui->entryWidget->addNewItem(Item::Type::income);
+    ui->itemsWidget->addNewItem(Item::Type::income);
 }
 
-void MainWindow::on_expense_clicked()
+void MainWindow::expense_clicked()
 {
-    ui->entryWidget->addNewItem(Item::Type::expense);
+    ui->itemsWidget->addNewItem(Item::Type::expense);
 }

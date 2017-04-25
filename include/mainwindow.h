@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 
-#include "item.h"
+#include <item.h>
 
 namespace Ui {
 class MainWindow;
@@ -20,8 +20,8 @@ public:
 private slots:
     void on_editButton_clicked();
     void on_deleteButton_clicked();
-    void on_income_clicked();
-    void on_expense_clicked();
+    void income_clicked();
+    void expense_clicked();
 
 private:
     Ui::MainWindow *ui;

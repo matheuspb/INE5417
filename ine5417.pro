@@ -25,14 +25,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 INCLUDEPATH += $$PWD/include
 
 SOURCES += src/item-manager/item.cpp \
-    src/item-manager/items.cpp \
-    src/view/mainwidget.cpp \
     src/view/mainwindow.cpp \
-    src/main.cpp
+    src/main.cpp \
+    src/item-manager/item-manager.cpp \
+    src/view/items-widget.cpp
 
 HEADERS  += include/item.h \
-    include/items.h \
-    include/mainwidget.h \
-    include/mainwindow.h
+    include/mainwindow.h \
+    include/item-manager.h \
+    include/items-widget.h
 
 FORMS    += src/view/mainwindow.ui

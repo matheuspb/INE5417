@@ -1,39 +1,39 @@
-#include <mainwidget.h>
-#include <item.h>
-
 #include <QInputDialog>
 
-MainWidget::MainWidget(QWidget *parent):
+#include <items-widget.h>
+#include <item.h>
+
+ItemsWidget::ItemsWidget(QWidget *parent):
     QTreeWidget(parent)
 {}
 
-void MainWidget::addNewItem(const Item::Type& type)
+void ItemsWidget::addNewItem(const Item::Type& type)
 {
-    items.addItem(promptNewItem(type));
+    itemManager.addItem(promptNewItem(type));
     updateEntries();
 }
 
-void MainWidget::removeSelectedItem()
+void ItemsWidget::removeSelectedItem()
 {
-    items.removeItem(getSelected());
+    itemManager.removeItem(getSelected());
     updateEntries();
 }
 
-void MainWidget::editSelectedItem()
+void ItemsWidget::editSelectedItem()
 {
     auto old = getSelected();
     auto edited = promptNewItem(old.type(), old);
-    items.removeItem(old);
-    items.addItem(edited);
+    itemManager.editItem(old, edited);
     updateEntries();
 }
 
-void MainWidget::updateEntries()
+void ItemsWidget::updateEntries()
 {
     incomes.takeChildren();
     expenses.takeChildren();
 
-    for (auto item: items) {
+    auto itemsList = itemManager.sortedItems();
+    for (auto item: itemsList) {
         QStringList data = {item.name(), item.category(),
                           QString::number(item.value(), 'f', 2)};
 
@@ -42,7 +42,7 @@ void MainWidget::updateEntries()
     }
 }
 
-Item MainWidget::promptNewItem(const Item::Type& type, const Item& hint)
+Item ItemsWidget::promptNewItem(const Item::Type& type, const Item& hint)
 {
     QString title = type == Item::Type::income ? "Receita:" : "Despesa:";
 
@@ -58,7 +58,7 @@ Item MainWidget::promptNewItem(const Item::Type& type, const Item& hint)
     return Item(name, category, value, type);
 }
 
-Item MainWidget::getSelected() const
+Item ItemsWidget::getSelected() const
 {
     auto selected = selectedItems();
     auto type = static_cast<Item::Type>(selected[0]->type());

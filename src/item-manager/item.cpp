@@ -1,6 +1,7 @@
 #include <item.h>
 
-Item::Item(QString name, QString category, double value, Type type):
+Item::Item(const QString& name, const QString& category,
+           const double& value, const Type& type):
     _name{name},
     _category{category},
     _value{value},

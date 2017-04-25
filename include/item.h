@@ -5,11 +5,12 @@
 
 class Item
 {
+
 public:
     enum Type {income, expense, none};
 
     Item() = default;
-    Item(QString, QString, double, Type = none);
+    Item(const QString&, const QString&, const double&, const Type& = none);
 
     bool operator==(const Item&) const;
 
