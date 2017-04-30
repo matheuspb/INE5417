@@ -28,11 +28,13 @@ SOURCES += src/item-manager/item.cpp \
     src/view/mainwindow.cpp \
     src/main.cpp \
     src/item-manager/item-manager.cpp \
-    src/view/items-widget.cpp
+    src/view/items-widget.cpp \
+    src/item-manager/month.cpp
 
 HEADERS  += include/item.h \
     include/mainwindow.h \
     include/item-manager.h \
-    include/items-widget.h
+    include/items-widget.h \
+    include/month.h
 
 FORMS    += src/view/mainwindow.ui

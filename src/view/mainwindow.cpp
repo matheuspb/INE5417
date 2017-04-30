@@ -40,3 +40,8 @@ void MainWindow::expense_clicked()
 {
     ui->itemsWidget->addNewItem(Item::Type::expense);
 }
+
+void MainWindow::on_changeMonthButton_clicked()
+{
+    ui->itemsWidget->changeMonth();
+}

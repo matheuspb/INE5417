@@ -1,5 +1,5 @@
-#ifndef MAINWIDGET_H
-#define MAINWIDGET_H
+#ifndef ITEMS_WIDGET_H
+#define ITEMS_WIDGET_H
 
 #include <QTreeWidget>
 
@@ -12,11 +12,12 @@ class ItemsWidget : public QTreeWidget
 public:
     explicit ItemsWidget(QWidget *parent = 0);
 
-public slots:
     void addNewItem(const Item::Type&);
     void removeSelectedItem();
     void editSelectedItem();
     void updateEntries();
+
+    void changeMonth();
 
 private:
     Item promptNewItem(const Item::Type&, const Item& = Item());
@@ -28,4 +29,4 @@ private:
 
 };
 
-#endif // MAINWIDGET_H
+#endif // ITEMS_WIDGET_H

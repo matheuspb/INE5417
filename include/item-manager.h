@@ -1,10 +1,12 @@
-#ifndef ITEMLIST_H
-#define ITEMLIST_H
+#ifndef ITEM_MANAGER_H
+#define ITEM_MANAGER_H
 
-#include <QObject>
-#include <QMultiMap>
+#include <QHash>
+#include <QDateTime>
 
-#include <item.h>
+#include <month.h>
+
+const static char dateFormat[] =  "MM/yyyy";
 
 class ItemManager
 {
@@ -14,11 +16,15 @@ public:
     void removeItem(const Item&);
     void editItem(const Item&, const Item&);
 
-    QList<Item> sortedItems() const;
+    const QString& month() const;
+    void month(const QString&);
+
+    QList<Item> sortedMonthItems() const;
 
 private:
-    QMultiMap<QString, Item> itemsMap; // item.name -> item
+    QString currentMonth{QDateTime::currentDateTime().toString(dateFormat)};
+    QHash<QString, Month> months;
 
 };
 
-#endif // ITEMLIST_H
+#endif // ITEM_MANAGER_H

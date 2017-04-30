@@ -23,6 +23,8 @@ private slots:
     void income_clicked();
     void expense_clicked();
 
+    void on_changeMonthButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 
