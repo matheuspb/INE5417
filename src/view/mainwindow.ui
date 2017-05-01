@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>500</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -23,6 +23,12 @@
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="ItemsWidget" name="itemsWidget">
+      <property name="indentation">
+       <number>20</number>
+      </property>
+      <property name="uniformRowHeights">
+       <bool>false</bool>
+      </property>
       <column>
        <property name="text">
         <string>Nome</string>
@@ -85,7 +91,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>500</width>
      <height>19</height>
     </rect>
    </property>
@@ -95,6 +101,8 @@
     </property>
     <addaction name="addIncomeAction"/>
     <addaction name="addExpenseAction"/>
+    <addaction name="separator"/>
+    <addaction name="statsAction"/>
    </widget>
    <addaction name="mainMenu"/>
   </widget>
@@ -106,6 +114,11 @@
   <action name="addExpenseAction">
    <property name="text">
     <string>Adicionar despesa</string>
+   </property>
+  </action>
+  <action name="statsAction">
+   <property name="text">
+    <string>Estatísticas do mês</string>
    </property>
   </action>
  </widget>

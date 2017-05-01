@@ -24,17 +24,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 INCLUDEPATH += $$PWD/include
 
-SOURCES += src/item-manager/item.cpp \
-    src/view/mainwindow.cpp \
-    src/main.cpp \
+SOURCES += src/main.cpp \
     src/item-manager/item-manager.cpp \
-    src/view/items-widget.cpp \
-    src/item-manager/month.cpp
+    src/item-manager/month.cpp \
+    src/item-manager/item.cpp \
+    src/view/mainwindow.cpp \
+    src/view/stats-window.cpp \
+    src/view/items-widget.cpp
 
 HEADERS  += include/item.h \
     include/mainwindow.h \
     include/item-manager.h \
     include/items-widget.h \
-    include/month.h
+    include/month.h \
+    include/stats-window.h
 
-FORMS    += src/view/mainwindow.ui
+FORMS    += src/view/mainwindow.ui \
+    src/view/statswindow.ui

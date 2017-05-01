@@ -15,11 +15,13 @@ public:
     void addNewItem(const Item::Type&);
     void removeSelectedItem();
     void editSelectedItem();
-    void updateEntries();
 
     void changeMonth();
+    void showMonthlyStats();
 
 private:
+    void updateEntries();
+
     Item promptNewItem(const Item::Type&, const Item& = Item());
     Item getSelected() const;
 

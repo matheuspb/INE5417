@@ -22,6 +22,7 @@ private slots:
     void on_deleteButton_clicked();
     void income_clicked();
     void expense_clicked();
+    void stats_clicked();
 
     void on_changeMonthButton_clicked();
 

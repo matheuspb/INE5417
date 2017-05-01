@@ -14,6 +14,9 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(income_clicked()));
     connect(ui->addExpenseAction, SIGNAL(triggered(bool)),
             this, SLOT(expense_clicked()));
+
+    connect(ui->statsAction, SIGNAL(triggered(bool)),
+            this, SLOT(stats_clicked()));
 }
 
 MainWindow::~MainWindow()
@@ -39,6 +42,11 @@ void MainWindow::income_clicked()
 void MainWindow::expense_clicked()
 {
     ui->itemsWidget->addNewItem(Item::Type::expense);
+}
+
+void MainWindow::stats_clicked()
+{
+    ui->itemsWidget->showMonthlyStats();
 }
 
 void MainWindow::on_changeMonthButton_clicked()

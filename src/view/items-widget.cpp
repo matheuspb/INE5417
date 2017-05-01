@@ -3,6 +3,7 @@
 
 #include <items-widget.h>
 #include <item.h>
+#include <stats-window.h>
 
 ItemsWidget::ItemsWidget(QWidget *parent):
     QTreeWidget(parent)
@@ -66,6 +67,13 @@ void ItemsWidget::changeMonth()
     }
 }
 
+void ItemsWidget::showMonthlyStats()
+{
+    StatsWindow sw(this);
+    sw.setItemsToShow(itemManager.sortedMonthItems(), itemManager.month());
+    sw.exec();
+}
+
 Item ItemsWidget::promptNewItem(const Item::Type& type, const Item& hint)
 {
     // FIXME if user cancels on one of the dialogs, it continues
@@ -78,8 +86,9 @@ Item ItemsWidget::promptNewItem(const Item::Type& type, const Item& hint)
     auto category = QInputDialog::getText(this, title, "Categoria do item:",
                                           QLineEdit::Normal, hint.category());
 
-    auto value = QInputDialog::getDouble(this, title, "Valor do item:",
-                                         QLineEdit::Normal, hint.value());
+    auto value = QInputDialog::getDouble(
+                this, title, "Valor do item:", hint.value(),
+                0, 999999, 2);
 
     return Item(name, category, value, type);
 }
