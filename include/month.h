@@ -1,7 +1,6 @@
 #ifndef MONTH_H
 #define MONTH_H
 
-#include <QObject>
 #include <QMultiMap>
 
 #include <item.h>

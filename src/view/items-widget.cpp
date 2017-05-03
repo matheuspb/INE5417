@@ -14,8 +14,10 @@ ItemsWidget::ItemsWidget(QWidget *parent):
 
 void ItemsWidget::addNewItem(const Item::Type& type)
 {
-    itemManager.addItem(promptNewItem(type));
-    updateEntries();
+    try {
+        itemManager.addItem(promptNewItem(type));
+        updateEntries();
+    } catch (std::runtime_error) {}
 }
 
 void ItemsWidget::removeSelectedItem()
@@ -34,20 +36,6 @@ void ItemsWidget::editSelectedItem()
         itemManager.editItem(old, edited);
         updateEntries();
     } catch (std::runtime_error) {}
-}
-
-void ItemsWidget::updateEntries()
-{
-    incomes.takeChildren();
-    expenses.takeChildren();
-
-    for (auto item: itemManager.sortedMonthItems()) {
-        QStringList data = {item.name(), item.category(),
-                          QString::number(item.value(), 'f', 2)};
-
-        auto parent = item.type() == Item::Type::income ? &incomes : &expenses;
-        new QTreeWidgetItem(parent, data, item.type());
-    }
 }
 
 void ItemsWidget::changeMonth()
@@ -74,21 +62,40 @@ void ItemsWidget::showMonthlyStats()
     sw.exec();
 }
 
+void ItemsWidget::updateEntries()
+{
+    incomes.takeChildren();
+    expenses.takeChildren();
+
+    for (auto item: itemManager.sortedMonthItems()) {
+        QStringList data = {item.name(), item.category(),
+                          QString::number(item.value(), 'f', 2)};
+
+        auto parent = item.type() == Item::Type::income ? &incomes : &expenses;
+        new QTreeWidgetItem(parent, data, item.type());
+    }
+}
+
 Item ItemsWidget::promptNewItem(const Item::Type& type, const Item& hint)
 {
-    // FIXME if user cancels on one of the dialogs, it continues
-
     QString title = type == Item::Type::income ? "Receita:" : "Despesa:";
 
-    auto name = QInputDialog::getText(this, title, "Nome do item:",
-                                      QLineEdit::Normal, hint.name());
+    bool ok;
 
-    auto category = QInputDialog::getText(this, title, "Categoria do item:",
-                                          QLineEdit::Normal, hint.category());
+    auto name = QInputDialog::getText(
+                this, title, "Nome do item:", QLineEdit::Normal,
+                hint.name(), &ok);
+    if (!ok) throw std::runtime_error("User canceled dialog");
+
+    auto category = QInputDialog::getText(
+                this, title, "Categoria do item:", QLineEdit::Normal,
+                hint.category(), &ok);
+    if (!ok) throw std::runtime_error("User canceled dialog");
 
     auto value = QInputDialog::getDouble(
                 this, title, "Valor do item:", hint.value(),
-                0, 999999, 2);
+                0, 999999, 2, &ok);
+    if (!ok) throw std::runtime_error("User canceled dialog");
 
     return Item(name, category, value, type);
 }

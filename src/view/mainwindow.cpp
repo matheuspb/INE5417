@@ -24,14 +24,19 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_deleteButton_clicked()
+void MainWindow::on_changeMonthButton_clicked()
 {
-    ui->itemsWidget->removeSelectedItem();
+    ui->itemsWidget->changeMonth();
 }
 
 void MainWindow::on_editButton_clicked()
 {
     ui->itemsWidget->editSelectedItem();
+}
+
+void MainWindow::on_deleteButton_clicked()
+{
+    ui->itemsWidget->removeSelectedItem();
 }
 
 void MainWindow::income_clicked()
@@ -47,9 +52,4 @@ void MainWindow::expense_clicked()
 void MainWindow::stats_clicked()
 {
     ui->itemsWidget->showMonthlyStats();
-}
-
-void MainWindow::on_changeMonthButton_clicked()
-{
-    ui->itemsWidget->changeMonth();
 }

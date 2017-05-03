@@ -18,13 +18,15 @@ public:
     ~MainWindow();
 
 private slots:
+    // buttons on the bottom of the window
+    void on_changeMonthButton_clicked();
     void on_editButton_clicked();
     void on_deleteButton_clicked();
+
+    // dropdown menu buttons
     void income_clicked();
     void expense_clicked();
     void stats_clicked();
-
-    void on_changeMonthButton_clicked();
 
 private:
     Ui::MainWindow *ui;
