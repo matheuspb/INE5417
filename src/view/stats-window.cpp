@@ -13,24 +13,18 @@ StatsWindow::~StatsWindow()
     delete ui;
 }
 
-void StatsWindow::setItemsToShow(const QList<Item>& items, const QString month)
+void StatsWindow::showTotals(const unsigned int& totalIncome,
+                             const unsigned int& totalExpenses,
+                             const QString month)
 {
     QString output = "Estatísticas do mês " + month + "\n\n";
 
-    double incomes = 0, expenses = 0;
+    output += ("Total de receitas = " + QString::number(totalIncome, 'f', 2) +
+               "\n" + "Total de despesas = " +
+               QString::number(totalExpenses, 'f', 2));
 
-    for (auto item: items) {
-        if (item.type() == Item::Type::income) {
-            incomes += item.value();
-        } else {
-            expenses += item.value();
-        }
-    }
-
-    output += ("Total de receitas = " + QString::number(incomes, 'f', 2) + "\n"
-              + "Total de despesas = " + QString::number(expenses, 'f', 2));
-
-    output += "\n\n Saldo = " + QString::number(incomes - expenses, 'f', 2);
+    output += "\n\n Saldo = " +
+            QString::number(totalIncome - totalExpenses, 'f', 2);
 
     ui->label->setText(output);
 }
