@@ -20,8 +20,12 @@ public:
     void month(const QString&);
 
     QList<Item> sortedMonthItems() const;
+    double totalIncome() const;
+    double totalExpenses() const;
 
 private:
+    double total(Item::Type) const;
+
     QString currentMonth{QDateTime::currentDateTime().toString(dateFormat)};
     QHash<QString, Month> months;
 

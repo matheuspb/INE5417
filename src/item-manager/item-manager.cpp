@@ -32,3 +32,26 @@ QList<Item> ItemManager::sortedMonthItems() const
 {
     return months[currentMonth].sortedItems();
 }
+
+double ItemManager::totalIncome() const
+{
+    return total(Item::Type::income);
+}
+
+double ItemManager::totalExpenses() const
+{
+    return total(Item::Type::expense);
+}
+
+double ItemManager::total(Item::Type type) const
+{
+    auto items = months[currentMonth].sortedItems();
+    double sum = 0;
+
+    for (auto item: items) {
+        if (item.type() == type)
+            sum += item.value();
+    }
+
+    return sum;
+}

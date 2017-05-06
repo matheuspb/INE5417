@@ -58,7 +58,8 @@ void ItemsWidget::changeMonth()
 void ItemsWidget::showMonthlyStats()
 {
     StatsWindow sw(this);
-    sw.setItemsToShow(itemManager.sortedMonthItems(), itemManager.month());
+    sw.showTotals(itemManager.totalIncome(), itemManager.totalExpenses(),
+                  itemManager.month());
     sw.exec();
 }
 
@@ -67,7 +68,9 @@ void ItemsWidget::updateEntries()
     incomes.takeChildren();
     expenses.takeChildren();
 
-    for (auto item: itemManager.sortedMonthItems()) {
+    auto items = itemManager.sortedMonthItems();
+
+    for (auto item: items) {
         QStringList data = {item.name(), item.category(),
                           QString::number(item.value(), 'f', 2)};
 
