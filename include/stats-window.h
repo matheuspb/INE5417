@@ -18,7 +18,7 @@ public:
     explicit StatsWindow(QWidget *parent = 0);
     ~StatsWindow();
 
-    void showTotals(const unsigned int&, const unsigned int&, const QString);
+    void showTotals(const double&, const double&, const QHash<QString, double>, const QString);
 
 private:
     Ui::StatsWindow *ui;

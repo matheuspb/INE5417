@@ -33,20 +33,20 @@ QList<Item> ItemManager::sortedMonthItems() const
     return months[currentMonth].sortedItems();
 }
 
-unsigned int ItemManager::totalIncome() const
+double ItemManager::totalIncome() const
 {
     return total(Item::Type::income);
 }
 
-unsigned int ItemManager::totalExpenses() const
+double ItemManager::totalExpenses() const
 {
     return total(Item::Type::expense);
 }
 
-unsigned int ItemManager::total(Item::Type type) const
+double ItemManager::total(Item::Type type) const
 {
     auto items = months[currentMonth].sortedItems();
-    unsigned int sum = 0;
+    double sum = 0.00;
 
     for (auto item: items) {
         if (item.type() == type)
@@ -54,4 +54,20 @@ unsigned int ItemManager::total(Item::Type type) const
     }
 
     return sum;
+}
+
+QHash<QString, double> ItemManager::totalCategories() const
+{
+    QHash<QString, double> categoriesTotal;
+
+    for (auto i: sortedMonthItems()) {
+        if (i.type() == Item::Type::expense) {
+            if (!categoriesTotal.contains(i.category()))
+                categoriesTotal.insert(i.category(), i.value());
+            else
+                categoriesTotal[i.category()] += i.value();
+        }
+    }
+
+    return categoriesTotal;
 }

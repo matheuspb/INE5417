@@ -28,16 +28,16 @@ SOURCES += src/main.cpp \
     src/item-manager/item-manager.cpp \
     src/item-manager/month.cpp \
     src/item-manager/item.cpp \
-    src/view/mainwindow.cpp \
     src/view/stats-window.cpp \
-    src/view/items-widget.cpp
+    src/view/items-widget.cpp \
+    src/view/main-window.cpp
 
 HEADERS  += include/item.h \
-    include/mainwindow.h \
     include/item-manager.h \
     include/items-widget.h \
     include/month.h \
-    include/stats-window.h
+    include/stats-window.h \
+    include/main-window.h
 
 FORMS    += src/view/mainwindow.ui \
     src/view/statswindow.ui

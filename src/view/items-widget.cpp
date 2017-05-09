@@ -59,7 +59,7 @@ void ItemsWidget::showMonthlyStats()
 {
     StatsWindow sw(this);
     sw.showTotals(itemManager.totalIncome(), itemManager.totalExpenses(),
-                  itemManager.month());
+                  itemManager.totalCategories(), itemManager.month());
     sw.exec();
 }
 
