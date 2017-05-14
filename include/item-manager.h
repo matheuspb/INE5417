@@ -23,6 +23,8 @@ public:
     double totalIncome() const;
     double totalExpenses() const;
 
+    QHash<QString, double> totalCategories() const;
+
 private:
     double total(Item::Type) const;
 

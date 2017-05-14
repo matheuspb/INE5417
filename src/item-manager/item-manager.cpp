@@ -55,3 +55,19 @@ double ItemManager::total(Item::Type type) const
 
     return sum;
 }
+
+QHash<QString, double> ItemManager::totalCategories() const
+{
+    QHash<QString, double> categoriesTotal;
+
+    for (auto i: sortedMonthItems()) {
+        if (i.type() == Item::Type::expense) {
+            if (!categoriesTotal.contains(i.category()))
+                categoriesTotal.insert(i.category(), i.value());
+            else
+                categoriesTotal[i.category()] += i.value();
+        }
+    }
+
+    return categoriesTotal;
+}
