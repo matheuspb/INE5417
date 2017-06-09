@@ -1,18 +1,31 @@
 #include <item-manager.h>
 
+ItemManager::ItemManager()
+{
+    auto items = itemMapper.fetchAllItems();
+
+    for (auto item: items) {
+        months[item.first].addItem(item.second);
+    }
+}
+
 void ItemManager::addItem(const Item& item)
 {
     months[currentMonth].addItem(item);
+    itemMapper.insertItem(item, currentMonth);
 }
 
 void ItemManager::removeItem(const Item& item)
 {
     months[currentMonth].removeItem(item);
+    itemMapper.deleteItem(item.name());
 }
 
 void ItemManager::editItem(const Item& old, const Item& edited)
 {
     months[currentMonth].editItem(old, edited);
+    itemMapper.deleteItem(old.name());
+    itemMapper.insertItem(edited, currentMonth);
 }
 
 const QString& ItemManager::month() const
@@ -24,7 +37,7 @@ void ItemManager::month(const QString& month_) {
     if (QDateTime::fromString(month_, dateFormat).isValid()) {
         currentMonth = month_;
     } else {
-        throw std::runtime_error("Formato do mês inválido");
+        throw std::runtime_error("Formato do mês inválido.");
     }
 }
 

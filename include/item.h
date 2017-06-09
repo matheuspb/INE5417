@@ -27,4 +27,6 @@ private:
 
 };
 
+uint qHash(Item);
+
 #endif // ITEM_H
