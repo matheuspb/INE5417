@@ -5,8 +5,6 @@
 #include <item.h>
 #include <stats-window.h>
 
-#include <login-window.h>
-
 ItemsWidget::ItemsWidget(QWidget *parent) try :
     QTreeWidget(parent)
 {

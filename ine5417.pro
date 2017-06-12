@@ -35,7 +35,7 @@ SOURCES += src/item-manager/item-manager.cpp \
     src/mappers/item-mapper.cpp \
     src/mappers/user-mapper.cpp
 
-HEADERS  += include/item-manager.h \
+HEADERS += include/item-manager.h \
     include/item-mapper.h \
     include/item.h \
     include/items-widget.h \
@@ -45,9 +45,9 @@ HEADERS  += include/item-manager.h \
     include/login-window.h \
     include/user-mapper.h
 
-FORMS    += src/view/mainwindow.ui \
-    src/view/statswindow.ui \
-    src/view/loginwindow.ui
+FORMS += forms/mainwindow.ui \
+    forms/statswindow.ui \
+    forms/loginwindow.ui
 
 SUBDIRS += \
     ine5417.pro
