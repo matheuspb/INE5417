@@ -25,13 +25,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 INCLUDEPATH += $$PWD/include
 
 SOURCES += src/item-manager/item-manager.cpp \
-    src/item-manager/item-mapper.cpp \
     src/item-manager/item.cpp \
     src/item-manager/month.cpp \
     src/view/items-widget.cpp \
     src/view/main-window.cpp \
     src/view/stats-window.cpp \
-    src/main.cpp
+    src/main.cpp \
+    src/view/login-window.cpp \
+    src/mappers/item-mapper.cpp \
+    src/mappers/user-mapper.cpp
 
 HEADERS  += include/item-manager.h \
     include/item-mapper.h \
@@ -39,10 +41,13 @@ HEADERS  += include/item-manager.h \
     include/items-widget.h \
     include/main-window.h \
     include/month.h \
-    include/stats-window.h
+    include/stats-window.h \
+    include/login-window.h \
+    include/user-mapper.h
 
 FORMS    += src/view/mainwindow.ui \
-    src/view/statswindow.ui
+    src/view/statswindow.ui \
+    src/view/loginwindow.ui
 
 SUBDIRS += \
     ine5417.pro

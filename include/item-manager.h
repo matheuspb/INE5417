@@ -5,6 +5,7 @@
 #include <QDateTime>
 
 #include <month.h>
+#include <user-mapper.h>
 #include <item-mapper.h>
 
 const static char dateFormat[] =  "MM/yyyy";
@@ -31,6 +32,7 @@ public:
 private:
     double total(Item::Type) const;
 
+    QString userLogin{""};
     QString currentMonth{QDateTime::currentDateTime().toString(dateFormat)};
     QHash<QString, Month> months;
 

@@ -8,9 +8,12 @@ ItemMapper::ItemMapper():
                 "Não foi possível conectar com o banco de dados.");
 }
 
-QSet<QPair<QString, Item>> ItemMapper::fetchAllItems() const
+QSet<QPair<QString, Item>> ItemMapper::fetchAllItems(const QString& user) const
 {
-    QSqlQuery query = db.exec("SELECT * FROM ine5417.item");
+    QSqlQuery query;
+    query.prepare("SELECT * FROM ine5417.item WHERE user_login = :user");
+    query.bindValue(":user", user);
+    query.exec();
 
     QSet<QPair<QString, Item>> items;
 
@@ -29,19 +32,21 @@ QSet<QPair<QString, Item>> ItemMapper::fetchAllItems() const
     return items;
 }
 
-void ItemMapper::insertItem(const Item& item, const QString& month) const
+void ItemMapper::insertItem(const Item& item, const QString& month,
+                            const QString& user) const
 {
     QSqlQuery query;
 
     query.prepare("INSERT INTO ine5417.item "
-                  "(name, category, value, type, month) VALUES"
-                  "(:name, :category, :value, :type, :month)");
+                  "(name, category, value, type, month, user_login) VALUES"
+                  "(:name, :category, :value, :type, :month, :user)");
 
     query.bindValue(":name", item.name());
     query.bindValue(":category", item.category());
     query.bindValue(":value", item.value());
     query.bindValue(":type", item.type());
     query.bindValue(":month", month);
+    query.bindValue(":user", user);
 
     query.exec();
 }

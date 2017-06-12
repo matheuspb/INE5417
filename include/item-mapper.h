@@ -11,8 +11,8 @@ class ItemMapper
 public:
     ItemMapper();
 
-    QSet<QPair<QString, Item>> fetchAllItems() const;
-    void insertItem(const Item&, const QString&) const;
+    QSet<QPair<QString, Item>> fetchAllItems(const QString&) const;
+    void insertItem(const Item&, const QString&, const QString&) const;
     void deleteItem(const QString& name) const;
 
 private:

@@ -1,31 +1,51 @@
+#include <QMessageBox>
+
 #include <item-manager.h>
+#include <login-window.h>
 
 ItemManager::ItemManager()
 {
-    auto items = itemMapper.fetchAllItems();
+    LoginWindow lw;
+    UserMapper um;
+    while (lw.exec() == QDialog::Accepted) {
+        if (um.checkUser(lw.login(), lw.password())) {
+            userLogin = lw.login();
+            break;
+        } else {
+            QMessageBox::warning(nullptr, "Erro", "Login incorreto");
+        }
+    }
 
-    for (auto item: items) {
-        months[item.first].addItem(item.second);
+    if (!userLogin.isEmpty()) {
+        auto items = itemMapper.fetchAllItems(userLogin);
+
+        for (auto item: items) {
+            months[item.first].addItem(item.second);
+        }
     }
 }
 
 void ItemManager::addItem(const Item& item)
 {
     months[currentMonth].addItem(item);
-    itemMapper.insertItem(item, currentMonth);
+    if (!userLogin.isEmpty())
+        itemMapper.insertItem(item, currentMonth, userLogin);
 }
 
 void ItemManager::removeItem(const Item& item)
 {
     months[currentMonth].removeItem(item);
-    itemMapper.deleteItem(item.name());
+    if (!userLogin.isEmpty())
+        itemMapper.deleteItem(item.name());
 }
 
 void ItemManager::editItem(const Item& old, const Item& edited)
 {
     months[currentMonth].editItem(old, edited);
-    itemMapper.deleteItem(old.name());
-    itemMapper.insertItem(edited, currentMonth);
+    if (!userLogin.isEmpty()) {
+        itemMapper.deleteItem(old.name());
+        itemMapper.insertItem(edited, currentMonth, userLogin);
+    }
 }
 
 const QString& ItemManager::month() const
