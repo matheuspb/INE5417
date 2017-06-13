@@ -5,11 +5,15 @@
 #include <item.h>
 #include <stats-window.h>
 
-ItemsWidget::ItemsWidget(QWidget *parent):
+ItemsWidget::ItemsWidget(QWidget *parent) try :
     QTreeWidget(parent)
 {
     incomes.setExpanded(true);
     expenses.setExpanded(true);
+
+    updateEntries();
+} catch (std::runtime_error e) {
+    QMessageBox::warning(parent, "Erro", e.what());
 }
 
 void ItemsWidget::addNewItem(const Item::Type& type)
@@ -89,6 +93,10 @@ Item ItemsWidget::promptNewItem(const Item::Type& type, const Item& hint)
                 this, title, "Nome do item:", QLineEdit::Normal,
                 hint.name(), &ok);
     if (!ok) throw std::runtime_error("User canceled dialog");
+    if (name.isEmpty()) {
+        QMessageBox::warning(this, "Erro", "O nome não pode ser vazio.");
+        throw std::runtime_error("Name cannot be empty");
+    }
 
     auto category = QInputDialog::getText(
                 this, title, "Categoria do item:", QLineEdit::Normal,

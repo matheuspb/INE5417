@@ -1,18 +1,51 @@
+#include <QMessageBox>
+
 #include <item-manager.h>
+#include <login-window.h>
+
+ItemManager::ItemManager()
+{
+    LoginWindow lw;
+    UserMapper um;
+    while (lw.exec() == QDialog::Accepted) {
+        if (um.checkUser(lw.login(), lw.password())) {
+            userLogin = lw.login();
+            break;
+        } else {
+            QMessageBox::warning(nullptr, "Erro", "Login incorreto");
+        }
+    }
+
+    if (!userLogin.isEmpty()) {
+        auto items = itemMapper.fetchAllItems(userLogin);
+
+        for (auto item: items) {
+            months[item.first].addItem(item.second);
+        }
+    }
+}
 
 void ItemManager::addItem(const Item& item)
 {
     months[currentMonth].addItem(item);
+    if (!userLogin.isEmpty())
+        itemMapper.insertItem(item, currentMonth, userLogin);
 }
 
 void ItemManager::removeItem(const Item& item)
 {
     months[currentMonth].removeItem(item);
+    if (!userLogin.isEmpty())
+        itemMapper.deleteItem(item.name());
 }
 
 void ItemManager::editItem(const Item& old, const Item& edited)
 {
     months[currentMonth].editItem(old, edited);
+    if (!userLogin.isEmpty()) {
+        itemMapper.deleteItem(old.name());
+        itemMapper.insertItem(edited, currentMonth, userLogin);
+    }
 }
 
 const QString& ItemManager::month() const
@@ -24,7 +57,7 @@ void ItemManager::month(const QString& month_) {
     if (QDateTime::fromString(month_, dateFormat).isValid()) {
         currentMonth = month_;
     } else {
-        throw std::runtime_error("Formato do mês inválido");
+        throw std::runtime_error("Formato do mês inválido.");
     }
 }
 

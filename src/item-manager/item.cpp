@@ -1,3 +1,5 @@
+#include <QHash>
+
 #include <item.h>
 
 Item::Item(const QString& name, const QString& category,
@@ -34,4 +36,9 @@ QString Item::category() const
 double Item::value() const
 {
     return _value;
+}
+
+uint qHash(Item item)
+{
+    return qHash(item.name());
 }

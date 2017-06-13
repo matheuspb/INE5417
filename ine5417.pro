@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -24,20 +24,30 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 INCLUDEPATH += $$PWD/include
 
-SOURCES += src/main.cpp \
-    src/item-manager/item-manager.cpp \
-    src/item-manager/month.cpp \
+SOURCES += src/item-manager/item-manager.cpp \
     src/item-manager/item.cpp \
-    src/view/stats-window.cpp \
+    src/item-manager/month.cpp \
     src/view/items-widget.cpp \
-    src/view/main-window.cpp
+    src/view/main-window.cpp \
+    src/view/stats-window.cpp \
+    src/main.cpp \
+    src/view/login-window.cpp \
+    src/mappers/item-mapper.cpp \
+    src/mappers/user-mapper.cpp
 
-HEADERS  += include/item.h \
-    include/item-manager.h \
+HEADERS += include/item-manager.h \
+    include/item-mapper.h \
+    include/item.h \
     include/items-widget.h \
+    include/main-window.h \
     include/month.h \
     include/stats-window.h \
-    include/main-window.h
+    include/login-window.h \
+    include/user-mapper.h
 
-FORMS    += src/view/mainwindow.ui \
-    src/view/statswindow.ui
+FORMS += forms/mainwindow.ui \
+    forms/statswindow.ui \
+    forms/loginwindow.ui
+
+SUBDIRS += \
+    ine5417.pro
