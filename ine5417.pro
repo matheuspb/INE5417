@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -22,10 +22,32 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+INCLUDEPATH += $$PWD/include
 
-SOURCES += main.cpp\
-        mainwindow.cpp
+SOURCES += src/item-manager/item-manager.cpp \
+    src/item-manager/item.cpp \
+    src/item-manager/month.cpp \
+    src/view/items-widget.cpp \
+    src/view/main-window.cpp \
+    src/view/stats-window.cpp \
+    src/main.cpp \
+    src/view/login-window.cpp \
+    src/mappers/item-mapper.cpp \
+    src/mappers/user-mapper.cpp
 
-HEADERS  += mainwindow.h
+HEADERS += include/item-manager.h \
+    include/item-mapper.h \
+    include/item.h \
+    include/items-widget.h \
+    include/main-window.h \
+    include/month.h \
+    include/stats-window.h \
+    include/login-window.h \
+    include/user-mapper.h
 
-FORMS    += mainwindow.ui
+FORMS += forms/mainwindow.ui \
+    forms/statswindow.ui \
+    forms/loginwindow.ui
+
+SUBDIRS += \
+    ine5417.pro
